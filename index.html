@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Audio Player</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="player-container">
+        <div class="title-bar">
+            <div class="title-bar-left">
+                <button id="eq-toggle" class="side-panel-button" title="Эквалайзер">
+                    <i class="fas fa-sliders-h"></i>
+                </button>
+                <button id="effects-toggle" class="side-panel-button" title="Эффекты">
+                    <i class="fas fa-magic"></i>
+                </button>
+            </div>
+            <div class="title-bar-center">
+                <h2 class="app-title">Modern Audio Player</h2>
+            </div>
+            <div class="window-controls">
+                <button id="minimize-btn">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <button id="maximize-btn">
+                    <i class="fas fa-square"></i>
+                </button>
+                <button id="close-btn">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="left-panel">
+                <div class="playlist-container">
+                    <div class="playlist-header">
+                        <h3>Плейлист</h3>
+                        <div class="playlist-controls">
+                            <button id="add-files-btn" title="Добавить файлы">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                            <button id="add-folder-btn" title="Добавить папку">
+                                <i class="fas fa-folder-plus"></i>
+                            </button>
+                            <button id="clear-playlist-btn" title="Очистить плейлист">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="playlist-search">
+                        <input type="text" id="search-input" class="search-input" placeholder="Поиск в плейлисте...">
+                    </div>
+                    <div class="playlist">
+                        <ul id="playlist-items" class="playlist-items">
+                            <!-- Элементы плейлиста будут добавляться динамически -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="right-panel">
+                <div class="player-controls">
+                    <div class="album-art">
+                        <img src="https://assets.audiomack.com/hamydex-olamide/3348b56a10ef4b53717ee299921dbadb808a2b792492aa7023336923cb04e305.jpeg" alt="Album Art" id="album-art">
+                        <div class="visualizer" id="visualizer"></div>
+                    </div>
+                    
+                    <div class="track-info">
+                        <h2 id="song-title">Название трека</h2>
+                        <p id="artist-name">Исполнитель</p>
+                      <!--  <div class="track-meta">
+                            <span id="album-name">Альбом</span>
+                            <span id="bitrate">320 kbps</span>
+                            <span id="format">MP3</span> *-->
+                        </div>
+                    </div>
+
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress" id="progress"></div>
+                            <div class="progress-handle"></div>
+                        </div>
+                        <div class="time-info">
+                            <span id="current-time">0:00</span>
+                            <span id="duration">0:00</span>
+                        </div>
+                    </div>
+
+                    <div class="main-controls">
+                        <button id="prev-btn" class="control-btn" title="Предыдущий трек"><i class="fas fa-step-backward"></i></button>
+                        <button id="play-btn" class="control-btn play-btn" title="Воспроизвести/Пауза"><i class="fas fa-play"></i></button>
+                        <button id="next-btn" class="control-btn" title="Следующий трек"><i class="fas fa-step-forward"></i></button>
+                        <button id="stop-btn" class="control-btn" title="Стоп"><i class="fas fa-stop"></i></button>
+                        <button id="repeat-btn" class="control-btn" title="Повтор"><i class="fas fa-redo"></i></button>
+                        <button id="shuffle-btn" class="control-btn" title="Случайный порядок"><i class="fas fa-random"></i></button>
+                        <div class="volume-control">
+                            <span class="volume-icon"><i class="fas fa-volume-up"></i></span>
+                            <input type="range" id="volume-slider" min="0" max="100" value="100">
+                        </div>
+                    </div>
+
+                    <div class="side-panel-buttons">
+                        <!-- Кнопки удалены -->
+                    </div>
+                </div>
+
+                <div class="side-panels">
+                    <div class="side-panel" id="equalizer-panel">
+                        <div class="equalizer">
+                            <div class="equalizer-header">
+                                <h3>Эквалайзер</h3>
+                                <div class="equalizer-controls">
+                                    <button id="eq-preset-btn" title="Пресеты"><i class="fas fa-prescription-bottle"></i></button>
+                                    <button id="eq-reset-btn" title="Сбросить"><i class="fas fa-undo"></i></button>
+                                </div>
+                            </div>
+                            <div class="equalizer-bands">
+                                <div class="eq-slider">
+                                    <label>31Hz</label>
+                                    <input type="range" class="eq-band" min="-12" max="12" value="0" data-freq="31">
+                                </div>
+                                <div class="eq-slider">
+                                    <label>62Hz</label>
+                                    <input type="range" class="eq-band" min="-12" max="12" value="0" data-freq="62">
+                                </div>
+                                <div class="eq-slider">
+                                    <label>125Hz</label>
+                                    <input type="range" class="eq-band" min="-12" max="12" value="0" data-freq="125">
+                                </div>
+                                <div class="eq-slider">
+                                    <label>250Hz</label>
+                                    <input type="range" class="eq-band" min="-12" max="12" value="0" data-freq="250">
+                                </div>
+                                <div class="eq-slider">
+                                    <label>500Hz</label>
+                                    <input type="range" class="eq-band" min="-12" max="12" value="0" data-freq="500">
+                                </div>
+                                <div class="eq-slider">
+                                    <label>1kHz</label>
+                                    <input type="range" class="eq-band" min="-12" max="12" value="0" data-freq="1000">
+                                </div>
+                                <div class="eq-slider">
+                                    <label>2kHz</label>
+                                    <input type="range" class="eq-band" min="-12" max="12" value="0" data-freq="2000">
+                                </div>
+                                <div class="eq-slider">
+                                    <label>4kHz</label>
+                                    <input type="range" class="eq-band" min="-12" max="12" value="0" data-freq="4000">
+                                </div>
+                                <div class="eq-slider">
+                                    <label>8kHz</label>
+                                    <input type="range" class="eq-band" min="-12" max="12" value="0" data-freq="8000">
+                                </div>
+                                <div class="eq-slider">
+                                    <label>16kHz</label>
+                                    <input type="range" class="eq-band" min="-12" max="12" value="0" data-freq="16000">
+                                </div>
+                            </div>
+                            <div class="equalizer-presets" id="eq-presets">
+                                <button class="preset-btn" data-preset="flat">Плоский</button>
+                                <button class="preset-btn" data-preset="rock">Рок</button>
+                                <button class="preset-btn" data-preset="pop">Поп</button>
+                                <button class="preset-btn" data-preset="jazz">Джаз</button>
+                                <button class="preset-btn" data-preset="classic">Классика</button>
+                                <button class="preset-btn" data-preset="bass">Басы</button>
+                                <button class="preset-btn" data-preset="vocal">Вокал</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="side-panel" id="effects-panel">
+                        <div class="effects">
+                            <div class="effects-header">
+                                <h3>Эффекты</h3>
+                                <button id="effects-reset-btn" title="Сбросить эффекты">
+                                    <i class="fas fa-undo"></i>
+                                </button>
+                            </div>
+                            <div class="effects-controls">
+                                <div class="effect">
+                                    <label>Balance</label>
+                                    <input type="range" class="effect-slider" min="-100" max="100" value="0" data-effect="balance">
+                                </div>
+                                <div class="effect">
+                                    <label>Speed</label>
+                                    <input type="range" class="effect-slider" min="50" max="200" value="100" data-effect="speed">
+                                </div>
+                                <div class="effect">
+                                    <label>Tempo</label>
+                                    <input type="range" class="effect-slider" min="50" max="200" value="100" data-effect="tempo">
+                                </div>
+                                <div class="effect">
+                                    <label>Bass</label>
+                                    <input type="range" class="effect-slider" min="-12" max="12" value="0" data-effect="bass">
+                                </div>
+                                <div class="effect">
+                                    <label>Chorus</label>
+                                    <input type="range" class="effect-slider" min="0" max="100" value="0" data-effect="chorus">
+                                </div>
+                                <div class="effect">
+                                    <label>Echo</label>
+                                    <input type="range" class="effect-slider" min="0" max="100" value="0" data-effect="echo">
+                                </div>
+                                <div class="effect">
+                                    <label>Reverb</label>
+                                    <input type="range" class="effect-slider" min="0" max="100" value="0" data-effect="reverb">
+                                </div>
+                                <div class="effect">
+                                    <label>Delay</label>
+                                    <input type="range" class="effect-slider" min="0" max="100" value="0" data-effect="delay">
+                                </div>
+                                <div class="effect">
+                                    <label>Flanger</label>
+                                    <input type="range" class="effect-slider" min="0" max="100" value="0" data-effect="flanger">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <script src="renderer.js"></script>
+</body>
+</html> 
