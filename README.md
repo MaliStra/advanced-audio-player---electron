@@ -1,4 +1,4 @@
-# advanced-audio-player---electron
+# advanced-audio-player-electron
 advanced audio player js/html/css - Electron 
 ![Снимок экрана 2025-04-13 181047](https://github.com/user-attachments/assets/535eb3a4-4033-454f-a0c4-014d197b11aa)
 
